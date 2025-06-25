@@ -24,8 +24,8 @@
           'o-cell': cell === 'O',
           'win-cell': isGameOver && cell === winner && winner
         }"
-        tabindex="{{!!cell || isGameOver ? -1 : 0}}"
-        aria-label="Tic Tac Toe cell {{ idx + 1 }}"
+        [attr.tabindex]="!!cell || isGameOver ? -1 : 0"
+        [attr.aria-label]="'Tic Tac Toe cell ' + (idx + 1)"
       >
         {{ cell }}
       </button>

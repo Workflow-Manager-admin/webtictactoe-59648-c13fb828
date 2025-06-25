@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 // PUBLIC_INTERFACE
 @Component({
   selector: 'app-root',
   styleUrls: ['./app.component.css'],
   templateUrl: './app.component.html',
+  // Standalone component: add CommonModule import for Angular directives (ngFor, ngClass, etc.)
   standalone: true,
+  imports: [CommonModule],
 })
 export class AppComponent {
   /** 3x3 board flattened 0..8; cells are '', 'X', or 'O' */
