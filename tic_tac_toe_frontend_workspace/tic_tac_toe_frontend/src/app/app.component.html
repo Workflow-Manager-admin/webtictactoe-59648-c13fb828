@@ -1,0 +1,56 @@
+<div class="ttt-root">
+  <!-- Player indicators -->
+  <div class="ttt-header" [class.game-over]="isGameOver">
+    <span class="player-indicator" [class.active]="currentPlayer === 'X'">X</span>
+    <span class="vs">vs</span>
+    <span class="player-indicator" [class.active]="currentPlayer === 'O'">O</span>
+  </div>
+
+  <!-- Win/draw notification -->
+  <div *ngIf="isGameOver" class="ttt-notification" [ngClass]="{'win': !!winner, 'draw': !winner}">
+    {{ statusMessage }}
+  </div>
+
+  <!-- Centered board -->
+  <div class="ttt-board-wrapper">
+    <div class="ttt-board" [class.disabled]="isGameOver">
+      <button
+        *ngFor="let cell of board; let idx = index"
+        class="ttt-cell"
+        [disabled]="!!cell || isGameOver"
+        (click)="handleClick(idx)"
+        [ngClass]="{
+          'x-cell': cell === 'X',
+          'o-cell': cell === 'O',
+          'win-cell': isGameOver && cell === winner && winner
+        }"
+        tabindex="{{!!cell || isGameOver ? -1 : 0}}"
+        aria-label="Tic Tac Toe cell {{ idx + 1 }}"
+      >
+        {{ cell }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Score and controls panel -->
+  <div class="ttt-controls">
+    <div class="ttt-scoreboard">
+      <div class="score-x">
+        <span class="score-label">X</span>
+        <span class="score-value">{{ scores.X }}</span>
+      </div>
+      <div class="score-draw">
+        <span class="score-label">Draw</span>
+        <span class="score-value">{{ scores.draw }}</span>
+      </div>
+      <div class="score-o">
+        <span class="score-label">O</span>
+        <span class="score-value">{{ scores.O }}</span>
+      </div>
+    </div>
+    <div class="ttt-panel-buttons">
+      <button class="ttt-btn reset-board-btn" (click)="resetBoard()" aria-label="Restart current round">Restart</button>
+      <button class="ttt-btn reset-game-btn" (click)="resetGame()" aria-label="Reset game and scores">Reset Game</button>
+    </div>
+  </div>
+</div>
